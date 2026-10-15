@@ -10,7 +10,8 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 5. **Typographie lourde** : titres en grotesque extra-gras, données en monospace.
 6. **Grille visible** : blocs rectangulaires collés, séparés par des traits noirs.
 7. **Interaction mécanique** : au survol le bloc se décale, à l'appui il « s'enfonce » (l'ombre disparaît). Pas d'animation douce, des sauts de 100 ms en `steps()`.
-8. **Accessibilité d'abord** : contraste ≥ 7:1 sur le texte, focus visible (contour jaune 4 px), cibles ≥ 44 px, `prefers-reduced-motion` respecté.
+8. **Accessibilité d'abord** (WCAG 2.2 AA, voir [`ACCESSIBILITY.md`](ACCESSIBILITY.md)) : contraste texte ≥ 4,5:1, texte ≥ 14 px, **focus visible = anneau noir 4 px + liseré blanc 2 px** (jamais jaune seul : 1,12:1), cibles ≥ 32 px desktop et 44 px mobile, `prefers-reduced-motion` respecté.
+9. **Règles de couleur** : jamais de texte noir sur bleu `#2B3BFF` (3,17:1), jamais de texte blanc sur rouge `#FF3B30` (3,55:1).
 
 ## Palette
 | Rôle | Nom | Hex |
@@ -30,7 +31,7 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 | Peu commune | PC | `#3DDC84` | coin coupé |
 | Rare | R | `#2B3BFF` (texte blanc) | double bordure |
 | Super rare | SR | `#FF6AD5` | motif de points |
-| Ultra rare | UR | `#FF3B30` (texte blanc) | rayures diagonales |
+| Ultra rare | UR | `#FF3B30` (texte noir) | rayures diagonales |
 | Légendaire | L | `#FFE500` | cadre noir épais + étoile |
 
 > La rareté ne repose jamais sur la couleur seule : le code (C, PC, R, SR, UR, L) est toujours écrit sur la carte.
@@ -58,6 +59,7 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 | **Tag / badge** | Rectangle, bordure 2 px, texte monospace en majuscules. |
 | **Tableau** | Lignes séparées par 3 px, en-tête noir sur texte crème. |
 | **Modale** | Bordure 4 px, ombre 12 px, fond de page noir à 100 % de contraste (pas de flou). |
+| **Mobile** | 375 px (320 px minimum). Barre haute (logo + portefeuille), **barre d'onglets fixe en bas** (Paquets, Album, Marché, Échanges, 44 px), cartes compactes en 2 colonnes (164 px), boutons pleine largeur. |
 | **Captcha** | Widget Cap habillé aux couleurs du site (bordure noire, case carrée). |
 | **Compte à rebours (enchère)** | Bloc monospace 40 px, fond jaune ; rouge sous 5 min. |
 | **Toast** | Bandeau plein largeur en haut, 4 s, bouton de fermeture. |
