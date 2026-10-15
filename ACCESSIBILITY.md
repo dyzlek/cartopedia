@@ -21,8 +21,8 @@
 | 5 | 1.4.3 Contraste | Texte indicatif (placeholder) `#6B6659` : 5,72:1, trop proche de la limite | `#595447` : **7,54:1** (mobile ; à reprendre sur desktop) |
 | 6 | 1.4.10 Reflow | Aucune version petit écran | **15 écrans mobiles** à 375 px, cartes en 2 colonnes, onglets en bas |
 | 7 | 3.2.6 Aide cohérente | Aucun moyen d'aide | Lien **AIDE** au même endroit (bandeau haut, avant le solde) sur **tous** les écrans desktop et mobile + page Aide et contact |
-| 8 | 3.3.1 / 3.3.3 Erreurs | Aucun état d'erreur | Composant **Champ** (repos, focus, **erreur**, désactivé) : message textuel avec icône ⚠ et « ERREUR : », bordure épaissie ; écran « Inscription — erreurs » avec résumé et captcha échoué |
-| 9 | 4.1.3 Messages d'état | Aucun retour après une action | Composant **Message d'état** (succès, erreur, info) avec icône, texte et bouton Fermer ; écrans « Vente confirmée » et « 429 » |
+| 8 | 3.3.1 / 3.3.3 Erreurs | Aucun état d'erreur | Composant **Champ** (repos, focus, **erreur**, désactivé) : message textuel avec symbole ▲ et « ERREUR : », bordure épaissie ; écran « Inscription — erreurs » avec résumé et captcha échoué |
+| 9 | 4.1.3 Messages d'état | Aucun retour après une action | Composant **Message d'état** (succès, erreur, info) avec symbole (✓ ▲ ●), texte et bouton Fermer ; écrans « Vente confirmée » et « 429 » |
 | 10 | 1.4.1 / 2.4.8 Page courante | La page active n'était pas indiquée sur desktop | Lien actif **souligné** (pas seulement coloré) ; onglet inversé en noir sur mobile ; à coder avec `aria-current="page"` |
 
 ## Contrastes mesurés (palette)

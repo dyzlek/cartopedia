@@ -16,5 +16,6 @@ Accueil · Connexion · Inscription · Inscription — erreurs · Paquet fermé 
 - Détail : Vendre → Mettre en vente → Marché (vente confirmée) ; Échanger → Échanges
 - Bandeau : Paquets, Album, Marché, Échanges, **Aide** (même place partout), solde → Profil, logo → Accueil
 - Page active soulignée (desktop) ou onglet inversé (mobile)
+- Marché mobile : chaque vente affiche sa carte compacte, rareté, prix et bouton Acheter
 
 À faire : 429 mobile, survol des cartes dessiné, états hors ligne. Voir `ACCESSIBILITY.md`.
