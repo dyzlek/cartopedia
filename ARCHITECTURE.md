@@ -146,7 +146,7 @@ pack_log(id, user_id, opened_at, card_ids)       -- audit + anti-abus
 ## Feuille de route
 | Version | Contenu |
 |---|---|
-| **V0** | Dossiers, `DESIGN.md`, `ARCHITECTURE.md`, maquettes Figma (ce dépôt) |
+| **V0** | Dossiers, `DESIGN.md`, `ARCHITECTURE.md`, maquettes Figma (fait) |
 | **V1** | Comptes + captcha, job de catalogue, ouverture de paquets, album |
 | **V2** | Marché (vente à prix fixe), portefeuille |
 | **V3** | Échanges entre joueurs |
