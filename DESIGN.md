@@ -4,7 +4,7 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 
 ## Principes
 1. **Bordures épaisses** noires (3 px partout, 4 px sur les cartes et les modales).
-2. **Ombres dures décalées**, jamais de flou : `box-shadow: 6px 6px 0 #000`.
+2. **Ombres dures décalées**, jamais de flou, en **noir à 30 %** : plus claires que les bordures (noir pur) pour que le contour reste dominant. `box-shadow: 6px 6px 0 rgba(0,0,0,.3)`.
 3. **Aucun arrondi** (`border-radius: 0`). Aucun dégradé, aucune transparence.
 4. **Couleurs plates et saturées** sur fond crème, texte noir pur.
 5. **Typographie lourde** : titres en grotesque extra-gras, données en monospace.
@@ -52,7 +52,7 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 ## Composants
 | Composant | Description |
 |---|---|
-| **Bouton** | Rectangle plein, bordure 3 px, ombre 4 px. Hover : décalage (−2, −2). Active : ombre 0, décalage (+4, +4). |
+| **Bouton** | Rectangle plein, bordure 3 px, ombre 4 px. Dans un tableau : 14 px de marge verticale dans la ligne, le bouton ne touche jamais les bords. Hover : décalage (−2, −2). Active : ombre 0, décalage (+4, +4). |
 | **Carte** | Ratio 5:7, bordure 4 px, bandeau de rareté en haut, image en niveaux de gris par défaut puis couleur au survol, stats en monospace en pied. |
 | **Champ de formulaire** | Bordure 3 px, fond blanc, étiquette au-dessus en majuscules, erreur en bloc rouge plein. |
 | **Tag / badge** | Rectangle, bordure 2 px, texte monospace en majuscules. |
@@ -81,7 +81,7 @@ theme: {
   extend: {
     colors: { paper: '#F4F0E6', ink: '#000', signal: '#FFE500', brut: '#FF3B30',
               volt: '#2B3BFF', acid: '#3DDC84', shock: '#FF6AD5' },
-    boxShadow: { brut: '6px 6px 0 #000', 'brut-sm': '4px 4px 0 #000', 'brut-lg': '12px 12px 0 #000' },
+    boxShadow: { brut: '6px 6px 0 rgba(0,0,0,.3)', 'brut-sm': '4px 4px 0 rgba(0,0,0,.3)', 'brut-lg': '12px 12px 0 rgba(0,0,0,.3)' },
     borderWidth: { 3: '3px' },
     fontFamily: { display: ['"Archivo Black"'], sans: ['"Space Grotesk"'], mono: ['"JetBrains Mono"'] },
   },

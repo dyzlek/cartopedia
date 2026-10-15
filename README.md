@@ -7,7 +7,7 @@ Jeu gratuit de **collection de cartes tirées d'articles Wikipédia** : ouvre de
 ## Documents
 - [`DESIGN.md`](DESIGN.md) : charte brutaliste (couleurs, typographie, composants, pages)
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) : arborescence, base de données, optimisation, anti-spam, captcha
-- [`design/FIGMA.md`](design/FIGMA.md) : maquettes Figma (design system et écrans)
+- [`design/FIGMA.md`](design/FIGMA.md) : maquettes et prototype Figma (10 écrans)
 
 ## Stack
 Flask · SQLAlchemy · Tailwind CSS · [Cap](https://github.com/tiagozip/cap) (captcha auto-hébergé) · SQLite / PostgreSQL
