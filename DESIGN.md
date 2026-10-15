@@ -1,0 +1,89 @@
+# DESIGN – Cartopedia (thème brutaliste)
+
+Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration inutile : l'interface montre sa structure.
+
+## Principes
+1. **Bordures épaisses** noires (3 px partout, 4 px sur les cartes et les modales).
+2. **Ombres dures décalées**, jamais de flou : `box-shadow: 6px 6px 0 #000`.
+3. **Aucun arrondi** (`border-radius: 0`). Aucun dégradé, aucune transparence.
+4. **Couleurs plates et saturées** sur fond crème, texte noir pur.
+5. **Typographie lourde** : titres en grotesque extra-gras, données en monospace.
+6. **Grille visible** : blocs rectangulaires collés, séparés par des traits noirs.
+7. **Interaction mécanique** : au survol le bloc se décale, à l'appui il « s'enfonce » (l'ombre disparaît). Pas d'animation douce, des sauts de 100 ms en `steps()`.
+8. **Accessibilité d'abord** : contraste ≥ 7:1 sur le texte, focus visible (contour jaune 4 px), cibles ≥ 44 px, `prefers-reduced-motion` respecté.
+
+## Palette
+| Rôle | Nom | Hex |
+|---|---|---|
+| Fond | Papier | `#F4F0E6` |
+| Texte / traits | Encre | `#000000` |
+| Action principale | Jaune signal | `#FFE500` |
+| Danger / vente | Rouge brut | `#FF3B30` |
+| Information / lien | Bleu électrique | `#2B3BFF` |
+| Succès | Vert acide | `#3DDC84` |
+| Accent | Rose choc | `#FF6AD5` |
+
+### Raretés des cartes
+| Rareté | Code | Couleur de fond | Marque distinctive |
+|---|---|---|---|
+| Commune | C | `#F4F0E6` | bordure simple |
+| Peu commune | PC | `#3DDC84` | coin coupé |
+| Rare | R | `#2B3BFF` (texte blanc) | double bordure |
+| Super rare | SR | `#FF6AD5` | motif de points |
+| Ultra rare | UR | `#FF3B30` (texte blanc) | rayures diagonales |
+| Légendaire | L | `#FFE500` | cadre noir épais + étoile |
+
+> La rareté ne repose jamais sur la couleur seule : le code (C, PC, R, SR, UR, L) est toujours écrit sur la carte.
+
+## Typographie
+| Usage | Police | Graisse | Remarque |
+|---|---|---|---|
+| Titres | **Archivo Black** (ou Space Grotesk 700) | 900 | MAJUSCULES, interlignage 0.95 |
+| Texte | **Space Grotesk** | 400 / 600 | corps 16–18 px |
+| Données, prix, stats | **JetBrains Mono** | 500 / 700 | chiffres tabulaires |
+
+Échelle : 12 / 14 / 16 / 20 / 28 / 40 / 64 px. Polices servies depuis nos propres fichiers (`static/fonts`) : pas de requête externe.
+
+## Espacement et grille
+- Unité de base : **8 px**. Espacements : 8, 16, 24, 32, 48, 64.
+- Conteneur : 1280 px max, 12 colonnes, gouttière 0 (les blocs se touchent, séparés par la bordure).
+- Points de rupture : 640, 1024, 1280 px. Mobile d'abord.
+
+## Composants
+| Composant | Description |
+|---|---|
+| **Bouton** | Rectangle plein, bordure 3 px, ombre 4 px. Hover : décalage (−2, −2). Active : ombre 0, décalage (+4, +4). |
+| **Carte** | Ratio 5:7, bordure 4 px, bandeau de rareté en haut, image en niveaux de gris par défaut puis couleur au survol, stats en monospace en pied. |
+| **Champ de formulaire** | Bordure 3 px, fond blanc, étiquette au-dessus en majuscules, erreur en bloc rouge plein. |
+| **Tag / badge** | Rectangle, bordure 2 px, texte monospace en majuscules. |
+| **Tableau** | Lignes séparées par 3 px, en-tête noir sur texte crème. |
+| **Modale** | Bordure 4 px, ombre 12 px, fond de page noir à 100 % de contraste (pas de flou). |
+| **Captcha** | Widget Cap habillé aux couleurs du site (bordure noire, case carrée). |
+| **Compte à rebours (enchère)** | Bloc monospace 40 px, fond jaune ; rouge sous 5 min. |
+| **Toast** | Bandeau plein largeur en haut, 4 s, bouton de fermeture. |
+
+## Pages principales (maquettes Figma)
+1. Accueil (visiteur) – accroche, aperçu de cartes, inscription.
+2. Inscription / Connexion + captcha.
+3. Ouverture de paquet.
+4. Album (collection) – filtres par rareté et tag, recherche.
+5. Détail d'une carte – stats, source Wikipédia, historique des prix.
+6. Marché – liste des ventes, filtres, tri.
+7. Échanges – proposer / répondre à une offre.
+8. Profil et portefeuille.
+9. États vides, erreurs 404/429, chargement.
+
+## Tokens (extrait Tailwind)
+```js
+// tailwind.config.js
+theme: {
+  borderRadius: { none: '0' },
+  extend: {
+    colors: { paper: '#F4F0E6', ink: '#000', signal: '#FFE500', brut: '#FF3B30',
+              volt: '#2B3BFF', acid: '#3DDC84', shock: '#FF6AD5' },
+    boxShadow: { brut: '6px 6px 0 #000', 'brut-sm': '4px 4px 0 #000', 'brut-lg': '12px 12px 0 #000' },
+    borderWidth: { 3: '3px' },
+    fontFamily: { display: ['"Archivo Black"'], sans: ['"Space Grotesk"'], mono: ['"JetBrains Mono"'] },
+  },
+}
+```

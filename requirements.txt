@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Login
+Flask-WTF
+Flask-Limiter
+requests
+python-dotenv
+gunicorn
