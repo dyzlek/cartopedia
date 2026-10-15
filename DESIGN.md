@@ -39,7 +39,7 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 ## Mouvement
 Les animations sont réalisées en **HTML/CSS** (pas dans Figma) :
 - Boutons : survol `translate(-2px,-2px)` + ombre 6 px, appui `translate(4px,4px)` sans ombre, 100 ms.
-- Ouverture d'un paquet : chaque carte apparaît avec `animation: reveal 240ms steps(4)` décalée de 140 ms (`animation-delay`), saut « mécanique » plutôt que fondu.
+- Ouverture d'un paquet : les cartes sont **révélées une par une, de la moins rare à la plus rare**, au rythme du joueur (boutons « Révéler la carte suivante » et « Tout révéler »). Chaque carte apparaît avec `animation: reveal 240ms steps(4)` (saut « mécanique » plutôt que fondu). Une annonce `role=status` indique la carte révélée. Sans JavaScript, toutes les cartes sont visibles.
 - `prefers-reduced-motion: reduce` : aucune animation, les cartes sont affichées directement.
 - Compte à rebours : texte mis à jour à la minute, jamais annoncé en continu aux lecteurs d'écran.
 

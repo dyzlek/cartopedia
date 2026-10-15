@@ -15,7 +15,7 @@
 </nav>
 
 {% if rows %}
-  <ul class="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4" role="list">
+  <ul class="mt-8 grid grid-cols-1 gap-5 min-[360px]:grid-cols-2 md:grid-cols-4" role="list">
     {% for inv in rows %}
       <li>{{ card(inv.card, qty=inv.quantity, href=url_for('album.detail', card_id=inv.card_id)) }}</li>
     {% endfor %}

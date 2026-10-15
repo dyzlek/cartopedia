@@ -2,7 +2,7 @@ from flask import Blueprint, abort, current_app, flash, redirect, render_templat
 from flask_login import current_user, login_required
 
 from ...extensions import db, limiter
-from ...models import Card, PackLog, utcnow
+from ...models import RARITIES, Card, PackLog, utcnow
 from ...services import captcha
 from ...services.packs import (
     EmptyCatalog,
@@ -59,6 +59,6 @@ def result(log_id: int):
         c.id: c
         for c in db.session.execute(db.select(Card).where(Card.id.in_(set(ids)))).scalars()
     }
-    return render_template(
-        "pages/pack_result.html", cards=[cards[i] for i in ids if i in cards], log=log
-    )
+    # Révélation du moins rare au plus rare (tri stable : l'ordre de tirage départage les égalités)
+    ordered = sorted((cards[i] for i in ids if i in cards), key=lambda c: RARITIES.index(c.rarity))
+    return render_template("pages/pack_result.html", cards=ordered, log=log)

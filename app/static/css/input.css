@@ -48,6 +48,11 @@
   .tag { @apply inline-flex min-h-[44px] items-center border-3 border-ink px-3.5 font-mono text-sm font-bold no-underline; }
 }
 
+/* Révélation carte par carte : sans JavaScript, toutes les cartes restent visibles */
+.card-back { display: none; }
+.js [data-reveal-item]:not(.is-revealed) .card-face { display: none; }
+.js [data-reveal-item]:not(.is-revealed) .card-back { display: flex; }
+
 /* Retournement des cartes à l'ouverture d'un paquet : désactivé si l'utilisateur le demande */
 @media (prefers-reduced-motion: reduce) {
   .animate-reveal { animation: none !important; }

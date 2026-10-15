@@ -341,3 +341,26 @@ def test_static_assets_are_versioned_and_cacheable(client):
     r = client.get(m.group(1))
     assert "immutable" in r.headers["Cache-Control"]
     assert "immutable" not in client.get("/static/css/output.css").headers["Cache-Control"]
+
+
+def test_pack_result_reveals_from_least_to_most_rare(client, register, app):
+    import re
+
+    from app.models import RARITIES, PackLog
+
+    register()
+    with app.app_context():
+        u = _user(app)
+        # tirage fixé : une carte de chaque rareté, dans le désordre
+        picked = [
+            db.session.execute(db.select(Card).where(Card.rarity == r)).scalars().first().id
+            for r in ("UR", "C", "L", "R")
+        ]
+        db.session.add(PackLog(user_id=u.id, kind="free", card_ids=",".join(map(str, picked))))
+        db.session.commit()
+        log_id = db.session.execute(db.select(PackLog.id)).scalar()
+    html = client.get(f"/paquets/resultat/{log_id}").get_data(as_text=True)
+    order = re.findall(r'data-rarity="([A-Z]+)"', html)
+    assert order == ["C", "R", "UR", "L"]
+    assert [RARITIES.index(r) for r in order] == sorted(RARITIES.index(r) for r in order)
+    assert 'role="status"' in html and "reveal-next" in html
