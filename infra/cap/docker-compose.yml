@@ -1,0 +1,33 @@
+# Serveur Cap (captcha auto-hébergé) — voir https://github.com/tiagozip/cap
+#   cd infra/cap && docker compose up -d
+# Ouvrir http://localhost:3000, se connecter avec ADMIN_KEY, créer une clé de site :
+# reporter CAP_ENDPOINT, CAP_SITE_KEY et CAP_SECRET dans le .env de Cartopedia.
+services:
+  cap:
+    image: tiago2/cap:latest   # en production : épingler une version précise
+    container_name: cap
+    ports:
+      - "3000:3000"
+    environment:
+      ADMIN_KEY: ${CAP_ADMIN_KEY:?définir CAP_ADMIN_KEY (32 caractères minimum)}
+      REDIS_URL: redis://valkey:6379
+    depends_on:
+      valkey:
+        condition: service_healthy
+    restart: unless-stopped
+
+  valkey:
+    image: valkey/valkey:9-alpine
+    container_name: cap-valkey
+    volumes:
+      - valkey-data:/data
+    command: valkey-server --save 60 1 --loglevel warning --maxmemory-policy noeviction
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  valkey-data:

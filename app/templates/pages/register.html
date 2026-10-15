@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+{% from "components/macros.html" import field, checkbox, captcha %}
+{% block title %}Inscription{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-xl">
+  <h1 class="mb-6 text-4xl">Créer un compte</h1>
+  {% if errors %}
+  <div role="alert" class="toast mb-6 bg-brut">
+    <span aria-hidden="true">▲</span>
+    <div>
+      <p>{{ errors | length }} champ{{ 's' if errors | length > 1 }} à corriger avant de continuer :</p>
+      <ul class="mt-1 list-inside list-disc font-normal">
+        {% for key, msg in errors.items() %}<li><a href="#{{ key }}">{{ msg }}</a></li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+  <form method="post" class="flex flex-col gap-5" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {{ field('pseudo', 'Nom d’utilisateur', value=form.pseudo, error=errors.pseudo, autocomplete='username', hint='3 à 24 caractères : lettres, chiffres, - ou _.') }}
+    {{ field('email', 'Adresse courriel', type='email', value=form.email, error=errors.email, autocomplete='email') }}
+    {{ field('password', 'Mot de passe', type='password', error=errors.password, autocomplete='new-password', hint='10 caractères minimum. Le collage est autorisé.') }}
+    {{ checkbox('adult', 'J’ai au moins 18 ans et je comprends que les cartes viennent de Wikipédia et peuvent contenir du contenu sensible.', errors.adult) }}
+    {{ checkbox('terms', 'J’accepte les conditions d’utilisation.', errors.terms) }}
+    {{ captcha(errors.captcha) }}
+    <button class="btn btn-primary" type="submit">Créer mon compte</button>
+    <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Déjà inscrit ? Se connecter</a>
+  </form>
+</div>
+{% endblock %}

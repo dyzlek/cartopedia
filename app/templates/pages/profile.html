@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+{% block title %}Profil{% endblock %}
+{% block content %}
+<h1 class="mb-8 text-4xl md:text-6xl">Profil — {{ current_user.pseudo }}</h1>
+<div class="grid grid-cols-2 gap-5 md:grid-cols-3">
+  <div class="panel bg-signal"><p class="text-sm font-bold">PIÈCES</p><p class="font-display text-3xl">{{ current_user.coins | thousands }} ◆</p></div>
+  <div class="panel bg-acid"><p class="text-sm font-bold">CARTES DIFFÉRENTES</p><p class="font-display text-3xl">{{ unique | thousands }} / {{ catalog_size | thousands }}</p></div>
+  <div class="panel bg-shock"><p class="text-sm font-bold">CARTES AU TOTAL</p><p class="font-display text-3xl">{{ total | thousands }}</p></div>
+</div>
+<h2 class="mb-4 mt-10 text-2xl">Derniers mouvements</h2>
+{% if movements %}
+<ul class="panel flex flex-col gap-2 font-mono text-base font-bold">
+  {% for m in movements %}<li>{{ '+' if m.delta > 0 else '−' }} {{ (m.delta | abs) | thousands }} ◆ · {{ {'bonus': 'Bonus de départ', 'pack': 'Paquet acheté'}.get(m.reason, m.reason) }}</li>{% endfor %}
+</ul>
+{% else %}<p>Aucun mouvement pour l’instant.</p>{% endif %}
+<form method="post" action="{{ url_for('auth.logout') }}" class="mt-10">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button class="btn btn-danger" type="submit">Déconnexion</button>
+</form>
+{% endblock %}

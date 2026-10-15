@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+{% from "components/macros.html" import field, checkbox, captcha %}
+{% block title %}Connexion{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-xl">
+  <h1 class="mb-6 text-4xl">Re-bonjour.</h1>
+  {% if errors.form %}
+  <div role="alert" class="toast mb-6 bg-brut"><span aria-hidden="true">▲</span><span>{{ errors.form }}</span></div>
+  {% endif %}
+  <form method="post" class="flex flex-col gap-5" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {{ field('identifier', 'Nom d’utilisateur ou courriel', value=identifier, autocomplete='username') }}
+    {{ field('password', 'Mot de passe', type='password', autocomplete='current-password') }}
+    {{ checkbox('remember', 'Rester connecté sur cet appareil') }}
+    {{ captcha(errors.captcha) }}
+    <button class="btn btn-primary" type="submit">Se connecter</button>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">Pas de compte ? Créer un compte</a>
+    <p class="text-sm">Mot de passe oublié ? <a href="{{ url_for('main.help_page') }}">Contacte l’aide</a>.</p>
+  </form>
+</div>
+{% endblock %}

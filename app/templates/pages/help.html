@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+{% block title %}Aide et contact{% endblock %}
+{% block content %}
+<h1 class="mb-8 text-4xl md:text-6xl">Aide et contact</h1>
+<div class="grid gap-6 md:grid-cols-2">
+  {% for q, a in [
+    ('Comment obtenir des cartes ?', 'Un paquet gratuit de ' ~ pack_size ~ ' cartes toutes les ' ~ free_interval_hours ~ ' heures, et des paquets à ' ~ paid_pack_price ~ ' pièces.'),
+    ('D’où viennent les cartes ?', 'D’articles Wikipédia (licence CC BY-SA 4.0). Chaque carte renvoie à son article.'),
+    ('Comment la rareté est-elle calculée ?', 'Selon la fréquentation de l’article sur 30 jours : plus il est lu, plus la carte est rare.'),
+    ('Puis-je acheter des pièces ?', 'Non : le jeu est gratuit et n’utilise aucun paiement réel.'),
+    ('Pourquoi un captcha ?', 'Pour limiter les robots. Cap fonctionne en arrière-plan : aucun puzzle à résoudre.')] %}
+  <section class="panel"><h2 class="text-xl">{{ q }}</h2><p class="mt-2">{{ a }}</p></section>
+  {% endfor %}
+</div>
+<p class="mt-8 text-lg">Un problème ? Écris-nous à <a href="mailto:contact@cartopedia.example" class="font-bold">contact@cartopedia.example</a> (adresse à remplacer avant la mise en ligne).</p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% block title %}Erreur du serveur{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-6 py-10">
+  <p class="font-display text-8xl leading-none md:text-[10rem]" aria-hidden="true">500</p>
+  <h1 class="text-3xl md:text-5xl">Erreur du serveur</h1>
+  <p class="text-xl">Quelque chose s’est mal passé de notre côté. Réessaie dans un instant.</p>
+  <p><a href="{{ url_for('main.home') }}" class="btn btn-primary">Retour à l’accueil</a></p>
+</div>
+{% endblock %}

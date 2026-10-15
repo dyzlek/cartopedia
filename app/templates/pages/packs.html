@@ -1,0 +1,31 @@
+{% extends "layouts/base.html" %}
+{% from "components/macros.html" import captcha %}
+{% block title %}Paquets{% endblock %}
+{% block content %}
+<h1 class="mb-8 text-4xl md:text-6xl">Ton paquet gratuit</h1>
+<div class="grid gap-10 md:grid-cols-[320px_1fr] md:items-start">
+  <div class="flex h-[360px] flex-col items-center justify-center gap-2 border-[6px] border-ink bg-volt text-white shadow-hard-lg" aria-hidden="true">
+    <span class="font-display text-5xl uppercase">Paquet</span>
+    <span class="font-mono text-lg font-bold text-signal">{{ pack_size }} CARTES</span>
+  </div>
+  <form method="post" action="{{ url_for('packs.open_') }}" class="flex flex-col gap-5">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {% if next_free_at %}
+      <p class="panel font-mono font-bold">
+        Prochain paquet gratuit dans
+        <time data-countdown="{{ next_free_at.isoformat() }}Z">{{ minutes_left }} min</time>.
+      </p>
+    {% else %}
+      <p class="panel bg-acid font-bold">Ton paquet gratuit est prêt.</p>
+    {% endif %}
+    {{ captcha() }}
+    <div class="flex flex-col gap-4 sm:flex-row">
+      <button class="btn btn-primary" type="submit" name="kind" value="free" {% if next_free_at %}disabled aria-disabled="true"{% endif %}>Ouvrir (gratuit)</button>
+      <button class="btn btn-secondary" type="submit" name="kind" value="paid" {% if current_user.coins < paid_pack_price %}disabled aria-disabled="true"{% endif %}>Ouvrir ({{ paid_pack_price }} ◆)</button>
+    </div>
+    {% if current_user.coins < paid_pack_price %}
+      <p class="text-sm">Il te faut {{ paid_pack_price }} pièces pour un paquet payant (tu en as {{ current_user.coins }}).</p>
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

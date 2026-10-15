@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+<section class="flex flex-col gap-6 py-6 md:py-12">
+  <h1 class="text-4xl md:text-7xl">L’encyclopédie en cartes.</h1>
+  <p class="max-w-2xl text-lg md:text-2xl">Ouvre des paquets, complète ton album : chaque carte vient d’un vrai article Wikipédia. Plus l’article est lu, plus la carte est rare. Gratuit.</p>
+  <div class="flex flex-col gap-4 sm:flex-row">
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Créer un compte</a>
+    <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Se connecter</a>
+  </div>
+</section>
+
+<section aria-labelledby="comment" class="mt-10 grid border-4 border-ink md:grid-cols-3">
+  <h2 id="comment" class="sr-only">Comment ça marche</h2>
+  {% for n, titre, texte, bg in [
+    ('1', 'Ouvre un paquet', 'Un paquet gratuit de ' ~ pack_size ~ ' cartes toutes les ' ~ free_interval_hours ~ ' heures.', 'bg-signal'),
+    ('2', 'Complète ton album', 'Des communes aux légendaires, selon la fréquentation de l’article.', 'bg-acid'),
+    ('3', 'Aucun paiement', 'Les pièces sont virtuelles. Le jeu est gratuit, sans publicité.', 'bg-shock')] %}
+  <div class="flex flex-col gap-2 border-b-4 border-ink p-6 last:border-b-0 md:border-b-0 md:border-r-4 md:last:border-r-0 {{ bg }}">
+    <span class="font-mono text-3xl font-bold" aria-hidden="true">{{ n }}</span>
+    <h3 class="text-2xl">{{ titre }}</h3>
+    <p>{{ texte }}</p>
+  </div>
+  {% endfor %}
+</section>
+{% if catalog_size %}
+<p class="mt-8 font-mono font-bold">{{ catalog_size | thousands }} cartes dans le catalogue.</p>
+{% endif %}
+{% endblock %}

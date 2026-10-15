@@ -1,0 +1,15 @@
+{% extends "layouts/base.html" %}
+{% from "components/macros.html" import card %}
+{% block title %}Paquet ouvert{% endblock %}
+{% block content %}
+<h1 class="mb-8 text-4xl md:text-6xl">Tu as obtenu {{ cards | length }} cartes</h1>
+<ul class="grid grid-cols-2 gap-6 md:grid-cols-4" role="list">
+  {% for c in cards %}
+    <li>{{ card(c, href=url_for('album.detail', card_id=c.id), index=loop.index0) }}</li>
+  {% endfor %}
+</ul>
+<div class="mt-10 flex flex-col gap-4 sm:flex-row">
+  <a href="{{ url_for('album.index') }}" class="btn btn-primary">Voir mon album</a>
+  <a href="{{ url_for('packs.index') }}" class="btn btn-secondary">Ouvrir un autre paquet</a>
+</div>
+{% endblock %}

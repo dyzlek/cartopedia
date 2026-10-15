@@ -8,3 +8,4 @@ instance/
 node_modules/
 app/static/css/output.css
 .claude/
+node_modules/

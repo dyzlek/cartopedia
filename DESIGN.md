@@ -36,6 +36,13 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 
 > La rareté ne repose jamais sur la couleur seule : le code (C, PC, R, SR, UR, L) est toujours écrit sur la carte.
 
+## Mouvement
+Les animations sont réalisées en **HTML/CSS** (pas dans Figma) :
+- Boutons : survol `translate(-2px,-2px)` + ombre 6 px, appui `translate(4px,4px)` sans ombre, 100 ms.
+- Ouverture d'un paquet : chaque carte apparaît avec `animation: reveal 240ms steps(4)` décalée de 140 ms (`animation-delay`), saut « mécanique » plutôt que fondu.
+- `prefers-reduced-motion: reduce` : aucune animation, les cartes sont affichées directement.
+- Compte à rebours : texte mis à jour à la minute, jamais annoncé en continu aux lecteurs d'écran.
+
 ## Symboles (pas d'émojis)
 Aucun émoji (rendu variable, couleurs imposées par le système). Seuls des **symboles typographiques**, qui prennent la couleur du texte : `▲` erreur, `✓` succès, `●` information, `◆` pièces, `←` retour, `⇄` échange, `☐` case. Chaque symbole accompagne toujours un texte.
 
@@ -87,7 +94,8 @@ theme: {
   extend: {
     colors: { paper: '#F4F0E6', ink: '#000', signal: '#FFE500', brut: '#FF3B30',
               volt: '#2B3BFF', acid: '#3DDC84', shock: '#FF6AD5' },
-    boxShadow: { brut: '6px 6px 0 rgba(0,0,0,.3)', 'brut-sm': '4px 4px 0 rgba(0,0,0,.3)', 'brut-lg': '12px 12px 0 rgba(0,0,0,.3)' },
+    // `hard` et non `brut` : `shadow-brut` entrerait en collision avec la couleur `brut`.
+    boxShadow: { hard: '6px 6px 0 rgba(0,0,0,.3)', 'hard-sm': '4px 4px 0 rgba(0,0,0,.3)', 'hard-lg': '12px 12px 0 rgba(0,0,0,.3)' },
     borderWidth: { 3: '3px' },
     fontFamily: { display: ['"Archivo Black"'], sans: ['"Space Grotesk"'], mono: ['"JetBrains Mono"'] },
   },

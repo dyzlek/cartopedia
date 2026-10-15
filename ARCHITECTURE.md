@@ -147,7 +147,7 @@ pack_log(id, user_id, opened_at, card_ids)       -- audit + anti-abus
 | Version | Contenu |
 |---|---|
 | **V0** | Dossiers, `DESIGN.md`, `ARCHITECTURE.md`, maquettes Figma (fait) |
-| **V1** | Comptes + captcha, job de catalogue, ouverture de paquets, album |
+| **V1** | Comptes + captcha, job de catalogue, ouverture de paquets, album (fait, voir README) |
 | **V2** | Marché (vente à prix fixe), portefeuille |
 | **V3** | Échanges entre joueurs |
 | **V4** | Enchères, guildes, succès (optionnel) |

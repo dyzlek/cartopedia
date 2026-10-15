@@ -1,0 +1,70 @@
+{#- Carte (rareté lisible en texte, jamais par la couleur seule) -#}
+{% macro card(c, qty=None, href=None, index=None) -%}
+{%- set styles = {
+  'C': 'bg-paper text-ink', 'PC': 'bg-acid text-ink', 'R': 'bg-volt text-white',
+  'SR': 'bg-shock text-ink', 'UR': 'bg-brut text-ink', 'L': 'bg-signal text-ink'} -%}
+{%- set label = RARITY_LABELS[c.rarity] -%}
+{%- set name = c.title ~ ', ' ~ label ~ ', attaque ' ~ c.attack ~ ', défense ' ~ c.defense -%}
+<article class="relative flex h-full flex-col border-4 {{ 'border-[6px]' if c.rarity == 'L' else '' }} border-ink shadow-hard {{ styles[c.rarity] }} {{ 'animate-reveal' if index is not none else '' }}"
+         {% if index is not none %}style="animation-delay: {{ index * 140 }}ms"{% endif %}>
+  <header class="flex items-center justify-between bg-ink px-3 py-1.5 text-white">
+    <span class="font-mono text-base font-bold">{{ c.rarity }}</span>
+    <span class="text-sm font-bold uppercase">{{ label }}</span>
+  </header>
+  <div class="h-36 border-y-3 border-ink bg-[#C9C4B5]">
+    {% if c.image_url %}
+      <img src="{{ c.image_url }}" alt="" loading="lazy" decoding="async" width="320" height="144"
+           class="h-full w-full object-cover grayscale">
+    {% endif %}
+  </div>
+  <div class="flex flex-1 flex-col gap-1 px-3 py-2.5">
+    <h3 class="break-words text-lg" style="hyphens: auto" lang="fr">
+      {% if href %}<a href="{{ href }}" aria-label="{{ name }}" class="no-underline after:absolute after:inset-0 hover:underline">{{ c.title }}</a>{% else %}{{ c.title }}{% endif %}
+    </h3>
+    <p class="line-clamp-3 text-sm">{{ c.description or c.summary }}</p>
+  </div>
+  <footer class="flex items-center justify-between gap-2 border-t-3 border-ink bg-white px-3 py-2 font-mono text-sm font-bold text-ink">
+    <span>ATK {{ c.attack | thousands }}</span>
+    <span>DEF {{ c.defense | thousands }}</span>
+    {% if qty and qty > 1 %}<span class="bg-ink px-1.5 text-white">×{{ qty }}</span>{% endif %}
+  </footer>
+</article>
+{%- endmacro %}
+
+{#- Champ de formulaire accessible : étiquette visible, erreur reliée par aria-describedby -#}
+{% macro field(name, label, type='text', value='', error=None, autocomplete=None, hint=None, required=True) -%}
+<div class="flex flex-col gap-1.5">
+  <label for="{{ name }}" class="text-sm font-bold uppercase">{{ label }}</label>
+  <input id="{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ value if type != 'password' else '' }}"
+         class="field-input" {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
+         {% if required %}required{% endif %}
+         {% if error %}aria-invalid="true"{% endif %}
+         {% if error or hint %}aria-describedby="{{ name }}-msg"{% endif %}>
+  {% if hint and not error %}<p id="{{ name }}-msg" class="text-sm text-muted">{{ hint }}</p>{% endif %}
+  {% if error %}<p id="{{ name }}-msg" class="field-error"><span aria-hidden="true">▲</span><span>ERREUR : {{ error }}</span></p>{% endif %}
+</div>
+{%- endmacro %}
+
+{% macro checkbox(name, label, error=None) -%}
+<div class="flex flex-col gap-1.5">
+  <label for="{{ name }}" class="flex items-start gap-3 text-sm">
+    <input type="checkbox" id="{{ name }}" name="{{ name }}" value="1" class="mt-0.5 h-6 w-6 shrink-0 accent-ink border-3 border-ink"
+           {% if error %}aria-invalid="true" aria-describedby="{{ name }}-msg"{% endif %}>
+    <span>{{ label }}</span>
+  </label>
+  {% if error %}<p id="{{ name }}-msg" class="field-error"><span aria-hidden="true">▲</span><span>ERREUR : {{ error }}</span></p>{% endif %}
+</div>
+{%- endmacro %}
+
+{#- Captcha Cap : le widget fournit le jeton, app.js le copie dans le champ caché -#}
+{% macro captcha(error=None) -%}
+<div class="flex flex-col gap-1.5">
+  {% if captcha_enabled %}
+    <cap-widget id="cap" data-cap-api-endpoint="{{ cap_endpoint }}/{{ cap_site_key }}/"></cap-widget>
+    <input type="hidden" name="cap-token" id="cap-token">
+  {% else %}
+    <p class="panel text-sm"><strong>Captcha désactivé</strong> (mode développement : <code>CAP_ENDPOINT</code>, <code>CAP_SITE_KEY</code> et <code>CAP_SECRET</code> non définis).</p>
+  {% endif %}
+  {% if error %}<p class="field-error"><span aria-hidden="true">▲</span><span>ERREUR : {{ error }}</span></p>{% endif %}
+</div>
+{%- endmacro %}

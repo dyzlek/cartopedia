@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Polices servies depuis nos propres fichiers (aucune requête externe) */
+@font-face { font-family: "Archivo Black"; font-weight: 400; font-display: swap;
+  src: url("../fonts/archivo-black-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-weight: 400; font-display: swap;
+  src: url("../fonts/space-grotesk-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-weight: 700; font-display: swap;
+  src: url("../fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; font-display: swap;
+  src: url("../fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 700; font-display: swap;
+  src: url("../fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); }
+
+@layer base {
+  html { scroll-padding-bottom: 6rem; }              /* 2.4.11 : barre d'onglets fixe */
+  body { @apply bg-paper text-ink font-sans text-base; }
+  h1, h2, h3 { @apply font-display uppercase leading-[0.95]; }
+  a { @apply underline underline-offset-4 decoration-2; }
+
+  /* Focus visible : anneau noir 4 px + liseré blanc 2 px (voir ACCESSIBILITY.md) */
+  :focus-visible { outline: 4px solid #000; outline-offset: 2px; box-shadow: 0 0 0 2px #fff; }
+  .on-dark :focus-visible { outline-color: #fff; box-shadow: 0 0 0 2px #000; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center border-3 border-ink px-6 py-3 font-bold
+           uppercase text-lg no-underline shadow-hard-sm transition-transform duration-100
+           hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard hover:underline
+           active:translate-x-1 active:translate-y-1 active:shadow-none motion-reduce:transition-none;
+  }
+  .btn-primary { @apply bg-signal text-ink; }
+  .btn-secondary { @apply bg-white text-ink; }
+  .btn-danger { @apply bg-brut text-ink; }
+  .btn-info { @apply bg-volt text-white; }
+  .btn:disabled, .btn[aria-disabled="true"] {
+    @apply cursor-not-allowed border-dashed border-muted bg-stone text-muted shadow-none hover:translate-x-0
+           hover:translate-y-0 hover:no-underline;
+  }
+  .field-input { @apply w-full border-3 border-ink bg-white px-3.5 py-3 text-base; }
+  .field-input[aria-invalid="true"] { @apply border-[5px]; }
+  .field-error { @apply flex gap-2 border-3 border-ink bg-brut px-3 py-2 text-sm font-bold text-ink; }
+  .panel { @apply border-3 border-ink bg-white p-5 shadow-hard-sm; }
+  .toast { @apply flex items-start gap-3 border-4 border-ink px-4 py-3 font-bold shadow-hard; }
+  .tag { @apply inline-flex min-h-[44px] items-center border-3 border-ink px-3.5 font-mono text-sm font-bold no-underline; }
+}
+
+/* Retournement des cartes à l'ouverture d'un paquet : désactivé si l'utilisateur le demande */
+@media (prefers-reduced-motion: reduce) {
+  .animate-reveal { animation: none !important; }
+}

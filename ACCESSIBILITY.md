@@ -2,6 +2,12 @@
 
 > **Périmètre honnête.** Cet audit porte sur la **maquette Figma** (10 écrans desktop, 9 écrans mobile) et sur les choix de conception. Le site n'est pas encore codé : **aucune conformité WCAG 2.2 ne peut être déclarée** tant que le code n'a pas été testé (clavier, lecteur d'écran, zoom, outils automatiques). Ce document dit ce qui est **acquis côté design**, ce qui a été **corrigé**, et ce qui reste **à vérifier à l'implémentation**.
 
+## État de l'implémentation V1
+
+Le site V1 est codé. **Contrôles faits** (navigateur intégré, Flask local) : parcours inscription → paquet → album, erreurs de formulaire (résumé + message par champ), absence de défilement horizontal à 375 px, barre d'onglets mobile, cibles ≥ 44 px (sauf liens dans une phrase), focus visible défini, `lang="fr"`, un seul `h1` par page, libellés visibles, erreurs reliées par `aria-describedby`/`aria-invalid`, `aria-current` sur le lien actif, lien d'évitement, `prefers-reduced-motion` respecté.
+
+**Pas encore faits** : test au lecteur d'écran (NVDA), audit automatique axe/Lighthouse, test clavier complet documenté, test à 200 % / 400 % de zoom, espacement du texte (1.4.12), widget Cap réel au clavier (le serveur Cap n'a pas pu être lancé : Docker non démarré). **La conformité WCAG 2.2 AA n'est donc pas déclarée.**
+
 ## Résultat de l'audit de la maquette
 
 | Verdict | Nombre | Détail |

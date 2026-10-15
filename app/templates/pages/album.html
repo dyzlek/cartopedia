@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+{% from "components/macros.html" import card %}
+{% block title %}Album{% endblock %}
+{% block content %}
+<h1 class="text-4xl md:text-6xl">Mon album</h1>
+<p class="mt-2 font-mono font-bold">{{ unique | thousands }} / {{ catalog_size | thousands }} cartes différentes · {{ total | thousands }} au total</p>
+
+<nav aria-label="Filtrer par rareté" class="mt-6 flex flex-wrap gap-2">
+  <a href="{{ url_for('album.index') }}" class="tag {{ 'bg-ink text-white' if not rarity else 'bg-white' }}" {% if not rarity %}aria-current="true"{% endif %}>TOUTES</a>
+  {% set bgs = {'C': 'bg-paper', 'PC': 'bg-acid', 'R': 'bg-volt text-white', 'SR': 'bg-shock', 'UR': 'bg-brut', 'L': 'bg-signal'} %}
+  {% for r in RARITIES %}
+    <a href="{{ url_for('album.index', rarete=r) }}" class="tag {{ bgs[r] }} {{ 'ring-4 ring-ink ring-offset-2' if rarity == r else '' }}"
+       aria-label="{{ RARITY_LABELS[r] }}" {% if rarity == r %}aria-current="true"{% endif %}>{{ r }}</a>
+  {% endfor %}
+</nav>
+
+{% if rows %}
+  <ul class="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4" role="list">
+    {% for inv in rows %}
+      <li>{{ card(inv.card, qty=inv.quantity, href=url_for('album.detail', card_id=inv.card_id)) }}</li>
+    {% endfor %}
+  </ul>
+  {% if next_cursor %}
+    <p class="mt-8"><a class="btn btn-secondary" href="{{ url_for('album.index', rarete=rarity or None, curseur=next_cursor) }}">Page suivante</a></p>
+  {% endif %}
+{% else %}
+  <div class="panel mt-8 flex flex-col items-start gap-4 py-10">
+    <h2 class="text-3xl">{{ 'Aucune carte de cette rareté.' if rarity else 'Ton album est vide.' }}</h2>
+    <p class="text-lg">Ouvre un paquet gratuit pour recevoir {{ pack_size }} cartes tirées d’articles Wikipédia.</p>
+    <a href="{{ url_for('packs.index') }}" class="btn btn-primary">Ouvrir mon premier paquet</a>
+  </div>
+{% endif %}
+{% endblock %}
