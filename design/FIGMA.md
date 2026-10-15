@@ -4,18 +4,17 @@ Fichier : https://www.figma.com/design/3Z3z652xWviZlCfksfqKru
 
 | Page Figma | Contenu |
 |---|---|
-| Design system | Palette (variables `Cartopedia/Couleurs`), typographie, composant **Bouton** (4 types), composant **Carte** (6 raretés), **Carte compacte (mobile)**, spécimen de **focus visible** |
-| Écrans | 10 écrans desktop (1280 px), prototype cliquable (départ : Accueil) |
-| Mobile | 9 écrans à 375 px, prototype cliquable (départ : Accueil), barre d'onglets en bas |
+| Design system | Palette (variables `Cartopedia/Couleurs`), typographie, **Bouton** (4 types × 5 états), **Carte** (6 raretés), **Carte compacte (mobile)**, **Champ** (repos, focus, erreur, désactivé), **Message d'état** (succès, erreur, info), spécimens de focus |
+| Écrans | 17 écrans desktop (1280 px), prototype cliquable |
+| Mobile | 15 écrans à 375 px, prototype cliquable, barre d'onglets en bas |
 
 ## Écrans
-Accueil · Album · Marché · Inscription (captcha Cap) · Paquet fermé · Paquet ouvert · Détail carte · Échanges · Profil · Erreur 404
+Accueil · Connexion · Inscription · Inscription — erreurs · Paquet fermé · Paquet ouvert · Album · Album vide · Détail carte · Mettre en vente · Marché · Marché — vente confirmée · Échanges · Profil · Aide et contact · Erreur 404 · Erreur 429 (desktop). Le mobile reprend tout sauf 404 et 429.
 
 ## Parcours du prototype
-- Accueil → Inscription → Paquet fermé → Paquet ouvert → Album / Détail
-- Navigation du bandeau : Paquets, Album, Marché, Échanges, Profil (portefeuille), logo = Accueil
-- Détail : Vendre → Marché, Échanger → Échanges, Retour → Album
-- Marché : Acheter → Détail ; Échanges : Accepter → Album, Proposer → Profil
-- Profil : Déconnexion → Accueil ; 404 : Retour à l'accueil
+- Accueil → Connexion → Album ; Accueil → Inscription → (erreurs) → Paquet fermé → Paquet ouvert → Album / Détail
+- Détail : Vendre → Mettre en vente → Marché (vente confirmée) ; Échanger → Échanges
+- Bandeau : Paquets, Album, Marché, Échanges, **Aide** (même place partout), solde → Profil, logo → Accueil
+- Page active soulignée (desktop) ou onglet inversé (mobile)
 
-À faire : états hover/disabled, états d'erreur des formulaires, lien d'aide, confirmation de vente (voir `ACCESSIBILITY.md`).
+À faire : 429 mobile, survol des cartes dessiné, états hors ligne. Voir `ACCESSIBILITY.md`.

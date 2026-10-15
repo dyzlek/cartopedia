@@ -6,9 +6,9 @@
 
 | Verdict | Nombre | Détail |
 |---|---|---|
-| Conforme côté design | 17 critères | contrastes, cibles, reflow prévu, couleur non seule porteuse, authentification… |
-| Corrigé pendant l'audit | 6 problèmes | voir ci-dessous |
-| À vérifier à l'implémentation | 12 critères | nécessitent du code (structure, ARIA, clavier, messages d'erreur…) |
+| Conforme côté design | 20 critères | contrastes, cibles, reflow, couleur non seule porteuse, authentification, aide cohérente, erreurs maquettées… |
+| Corrigé pendant l'audit | 10 problèmes | voir ci-dessous |
+| À vérifier à l'implémentation | 13 critères | nécessitent du code (structure, ARIA, clavier, annonces des messages…) |
 
 ## Problèmes trouvés et corrigés
 
@@ -19,7 +19,11 @@
 | 3 | 1.4.4 Redimensionnement / lisibilité | Textes de **11 à 13 px** (bandeaux de carte, descriptions, mention Cap) | Minimum **14 px** partout |
 | 4 | 2.5.8 Taille de cible (minimum) | Liens de navigation d'environ 20 px de haut | Cibles de **32 px** (desktop) et **44 px** (mobile) |
 | 5 | 1.4.3 Contraste | Texte indicatif (placeholder) `#6B6659` : 5,72:1, trop proche de la limite | `#595447` : **7,54:1** (mobile ; à reprendre sur desktop) |
-| 6 | 1.4.10 Reflow | Aucune version petit écran | **9 écrans mobiles** à 375 px, cartes en 2 colonnes, onglets en bas |
+| 6 | 1.4.10 Reflow | Aucune version petit écran | **15 écrans mobiles** à 375 px, cartes en 2 colonnes, onglets en bas |
+| 7 | 3.2.6 Aide cohérente | Aucun moyen d'aide | Lien **AIDE** au même endroit (bandeau haut, avant le solde) sur **tous** les écrans desktop et mobile + page Aide et contact |
+| 8 | 3.3.1 / 3.3.3 Erreurs | Aucun état d'erreur | Composant **Champ** (repos, focus, **erreur**, désactivé) : message textuel avec icône ⚠ et « ERREUR : », bordure épaissie ; écran « Inscription — erreurs » avec résumé et captcha échoué |
+| 9 | 4.1.3 Messages d'état | Aucun retour après une action | Composant **Message d'état** (succès, erreur, info) avec icône, texte et bouton Fermer ; écrans « Vente confirmée » et « 429 » |
+| 10 | 1.4.1 / 2.4.8 Page courante | La page active n'était pas indiquée sur desktop | Lien actif **souligné** (pas seulement coloré) ; onglet inversé en noir sur mobile ; à coder avec `aria-current="page"` |
 
 ## Contrastes mesurés (palette)
 
@@ -76,8 +80,8 @@ Règle : **pas de texte noir sur `#2B3BFF`, pas de blanc sur `#FF3B30`**.
 |---|---|---|---|
 | 3.1.1 Langue de la page | A | À vérifier | `<html lang="fr">`, `lang` sur les extraits dans une autre langue |
 | 3.2.2 Saisie | A | À vérifier | pas de changement de contexte à la saisie |
-| **3.2.6 Aide cohérente** | A | **À concevoir** | aucun lien d'aide/contact n'existe encore : le placer au même endroit (pied de page) sur toutes les pages |
-| 3.3.1 / 3.3.3 Erreurs | A / AA | **À concevoir** | aucun état d'erreur de formulaire n'est maquetté |
+| **3.2.6 Aide cohérente** | A | **Conforme (design)** | lien AIDE au même endroit sur toutes les pages (desktop et mobile) |
+| 3.3.1 / 3.3.3 Erreurs | A / AA | **Conforme (design)** | erreur décrite en texte, avec suggestion de correction ; à relier en code par `aria-describedby` et `aria-invalid` |
 | 3.3.2 Étiquettes | A | **Conforme** | libellé visible au-dessus de chaque champ |
 | **3.3.7 Saisie redondante** | A | À vérifier | ne jamais redemander une information déjà fournie (vente, échange) |
 | **3.3.8 Authentification accessible (minimum)** | AA | **Conforme (design)** | Cap = preuve de travail en arrière-plan : aucun test cognitif (pas de puzzle, pas de transcription) ; autoriser le collage et les gestionnaires de mots de passe |
@@ -89,13 +93,14 @@ Règle : **pas de texte noir sur `#2B3BFF`, pas de blanc sur `#FF3B30`**.
 | 4.1.3 Messages d'état | AA | À vérifier | confirmations (« Carte vendue ») dans une zone `role="status"` |
 
 ## Ce qui manque encore dans la maquette
-1. États **erreur** des formulaires (champ invalide, captcha échoué, 429 « trop de requêtes »).
-2. États **hover / active / disabled** des boutons (seul le focus est spécifié).
-3. Lien d'**aide / contact** cohérent (critère 3.2.6).
-4. Confirmation de vente et zone de messages d'état.
+1. Version mobile de l'écran 429 et des erreurs réseau (500, hors ligne).
+2. États survol/appui des **cartes** (le survol est décrit dans `DESIGN.md`, seul le focus est dessiné).
+3. Modale de confirmation (si elle est ajoutée) : piège de focus et touche Échap à spécifier.
 
 ## Règles d'implémentation
 - HTML sémantique d'abord : `<header>`, `<nav aria-label>`, `<main>`, `<footer>`, un seul `<h1>`.
+- Erreurs : message relié au champ par `aria-describedby`, `aria-invalid="true"`, résumé en haut du formulaire avec `role="alert"` ; le message ne repose jamais sur la seule couleur.
+- Page courante : `aria-current="page"` sur le lien actif du bandeau et de la barre d'onglets.
 - Focus : `:focus-visible { outline: 4px solid #000; outline-offset: 2px; box-shadow: 0 0 0 2px #fff; }` (blanc sur fond noir).
 - Chaque carte : un seul lien englobant avec un nom accessible complet, par exemple « Albert Einstein, ultra rare, attaque 7 470, défense 8 000 ».
 - Compte à rebours : texte statique mis à jour toutes les minutes, jamais `aria-live` à la seconde.

@@ -53,16 +53,17 @@ Direction : **néo-brutalisme web**. Brut, franc, lisible. Aucune décoration in
 ## Composants
 | Composant | Description |
 |---|---|
+| **Bouton — états** | Repos, **survol** (ombre 6 px + texte souligné), **appui** (ombre 0), **désactivé** (fond gris, pointillés, texte `#595447`), **focus** (anneau). |
 | **Bouton** | Rectangle plein, bordure 3 px, ombre 4 px. Dans un tableau : 14 px de marge verticale dans la ligne, le bouton ne touche jamais les bords. Hover : décalage (−2, −2). Active : ombre 0, décalage (+4, +4). |
 | **Carte** | Ratio 5:7, bordure 4 px, bandeau de rareté en haut, image en niveaux de gris par défaut puis couleur au survol, stats en monospace en pied. |
-| **Champ de formulaire** | Bordure 3 px, fond blanc, étiquette au-dessus en majuscules, erreur en bloc rouge plein. |
+| **Champ de formulaire** | Bordure 3 px, fond blanc, étiquette au-dessus en majuscules. **États : repos, focus (anneau noir + blanc), erreur (bordure 5 px + bloc rouge « ⚠ ERREUR : … » en texte noir), désactivé (pointillés, fond gris).** |
 | **Tag / badge** | Rectangle, bordure 2 px, texte monospace en majuscules. |
 | **Tableau** | Lignes séparées par 3 px, en-tête noir sur texte crème. |
 | **Modale** | Bordure 4 px, ombre 12 px, fond de page noir à 100 % de contraste (pas de flou). |
 | **Mobile** | 375 px (320 px minimum). Barre haute (logo + portefeuille), **barre d'onglets fixe en bas** (Paquets, Album, Marché, Échanges, 44 px), cartes compactes en 2 colonnes (164 px), boutons pleine largeur. |
 | **Captcha** | Widget Cap habillé aux couleurs du site (bordure noire, case carrée). |
 | **Compte à rebours (enchère)** | Bloc monospace 40 px, fond jaune ; rouge sous 5 min. |
-| **Toast** | Bandeau plein largeur en haut, 4 s, bouton de fermeture. |
+| **Message d'état (toast)** | Bandeau plein largeur en haut, icône + texte + bouton FERMER, 3 types : succès (vert), erreur (rouge, texte noir), info (jaune). Reste affiché tant qu'il n'est pas fermé (≥ 5 s). |
 
 ## Pages principales (maquettes Figma)
 1. Accueil (visiteur) – accroche, aperçu de cartes, inscription.

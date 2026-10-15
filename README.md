@@ -7,7 +7,7 @@ Jeu gratuit de **collection de cartes tirées d'articles Wikipédia** : ouvre de
 ## Documents
 - [`DESIGN.md`](DESIGN.md) : charte brutaliste (couleurs, typographie, composants, pages)
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) : arborescence, base de données, optimisation, anti-spam, captcha
-- [`design/FIGMA.md`](design/FIGMA.md) : maquettes et prototype Figma (10 écrans)
+- [`design/FIGMA.md`](design/FIGMA.md) : maquettes et prototype Figma (17 écrans desktop + 15 mobiles)
 - [`ACCESSIBILITY.md`](ACCESSIBILITY.md) : audit WCAG 2.2 de la maquette et règles d'implémentation
 
 ## Stack
